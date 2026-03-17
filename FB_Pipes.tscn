@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbqhm5isw11dw"]
+
+[ext_resource type="Script" uid="uid://c75186ykd0803" path="res://FB_Pipes.gd" id="1_87c6k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_87c6k"]
+albedo_color = Color(0.5513814, 0.95174545, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qgwgk"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bam5s"]
+
+[node name="Pipes" type="Node3D" groups=["enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6899362, 0, 0)
+script = ExtResource("1_87c6k")
+
+[node name="PIPE" type="MeshInstance3D" parent="." groups=["enemy"]]
+transform = Transform3D(2, 0, 0, 0, 5, 0, 0, 0, 2, 0, -2.2949188, 0)
+material_override = SubResource("StandardMaterial3D_87c6k")
+mesh = SubResource("CylinderMesh_qgwgk")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="." groups=["enemy"]]
+
+[node name="PIPE COLLISION" type="CollisionShape3D" parent="Area3D" groups=["enemy"]]
+transform = Transform3D(2, 0, 0, 0, 5, 0, 0, 0, 2, 0, -2.2949188, 0)
+shape = SubResource("CylinderShape3D_bam5s")

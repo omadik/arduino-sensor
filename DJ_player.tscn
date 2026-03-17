@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpfx4lt5m0d20"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nhtjw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0puru"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_nhtjw")
+debug_color = Color(0.9463535, 6.6420434e-06, 0.5905017, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_0puru")

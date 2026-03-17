@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://1bdalo3xwkap"]
+
+[ext_resource type="Script" uid="uid://dnwhloidx5glu" path="res://gameOver.gd" id="1_sdbmt"]
+
+[node name="Control" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sdbmt")
+
+[node name="Continue?" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = -33.0
+offset_right = 101.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Continue?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="cont" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 370.0
+offset_top = -250.0
+offset_right = 520.0
+offset_bottom = -216.0
+grow_vertical = 0
+text = "Yes"
+
+[node name="quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 602.0
+offset_top = -252.0
+offset_right = 752.0
+offset_bottom = -218.0
+grow_vertical = 0
+text = "No"
+
+[connection signal="continue_pressed" from="." to="." method="_on_continue"]
+[connection signal="quit_pressed" from="." to="." method="_on_quit"]

@@ -1,0 +1,60 @@
+[gd_scene load_steps=12 format=3 uid="uid://bf26ifh3thhhl"]
+
+[ext_resource type="Script" uid="uid://gar2lpxqt4un" path="res://FB_Main.gd" id="1_f5enf"]
+[ext_resource type="PackedScene" uid="uid://cpfx4lt5m0d20" path="res://DJ_player.tscn" id="1_kaw5a"]
+[ext_resource type="Script" uid="uid://dv02qmda2e1xj" path="res://FB_Player.gd" id="2_0kh6k"]
+[ext_resource type="PackedScene" uid="uid://kk7tjxvtlhx0" path="res://Main_UI.tscn" id="2_kaw5a"]
+[ext_resource type="PackedScene" uid="uid://cbqhm5isw11dw" path="res://FB_Pipes.tscn" id="5_f5enf"]
+[ext_resource type="Script" uid="uid://cl0mtd6roha0y" path="res://FB_PipeSpawner.gd" id="6_x0e25"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_f5enf"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6dmil"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0kh6k"]
+sky_top_color = Color(0.12991825, 0.4558481, 0.7707333, 1)
+sky_horizon_color = Color(0.460598, 0.64928126, 1, 1)
+ground_bottom_color = Color(0.6129561, 0.83172053, 0.98626727, 1)
+ground_horizon_color = Color(0.4956066, 0.64972603, 0.96248394, 1)
+
+[sub_resource type="Sky" id="Sky_6dmil"]
+sky_material = SubResource("ProceduralSkyMaterial_0kh6k")
+radiance_size = 1
+
+[sub_resource type="Environment" id="Environment_f5enf"]
+background_mode = 2
+sky = SubResource("Sky_6dmil")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_f5enf")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+current = true
+
+[node name="Player" parent="." instance=ExtResource("1_kaw5a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.974966, 0)
+script = ExtResource("2_0kh6k")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_f5enf")
+
+[node name="Area3D" type="Area3D" parent="Player"]
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="Player/Area3D"]
+shape = SubResource("CylinderShape3D_6dmil")
+debug_color = Color(0.9463535, 6.6420434e-06, 0.5905017, 0.41960785)
+
+[node name="UI" parent="." instance=ExtResource("2_kaw5a")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.7071068, -0.5, 0.5, 0, 0.7071068, 0.70710677, -0.7071068, -0.5, 0.5, -1.6150479, 8.821613, -0.28534317)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f5enf")
+
+[node name="Pipes" parent="." instance=ExtResource("5_f5enf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.807415, 0, 0)
+
+[node name="PipeSpawner" type="Node3D" parent="."]
+script = ExtResource("6_x0e25")

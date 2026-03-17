@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://kk7tjxvtlhx0"]
+
+[ext_resource type="Script" uid="uid://dheve6qd3u1w4" path="res://main_ui.gd" id="1_5ityj"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_5ityj")
+
+[node name="DistanceLabel" type="Label" parent="."]
+offset_right = 116.0
+offset_bottom = 41.0
+text = "Debug: | Distance: "
+metadata/_edit_use_anchors_ = true
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_top = 27.0
+offset_right = 173.0
+offset_bottom = 89.0
+text = "Score: "

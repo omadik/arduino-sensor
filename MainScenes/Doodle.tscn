@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=3 uid="uid://dt44gp7e6sos7"]
+
+[ext_resource type="Script" uid="uid://cgkn81g4kch5o" path="res://DJ_main.gd" id="1_dvkj0"]
+[ext_resource type="Script" uid="uid://chfk7hh1dh3nr" path="res://DJ_camera.gd" id="2_dl6rf"]
+[ext_resource type="PackedScene" uid="uid://cpfx4lt5m0d20" path="res://DJ_player.tscn" id="3_uedo7"]
+[ext_resource type="Script" uid="uid://dlpqt7fudrbel" path="res://DJ_player.gd" id="4_onwlc"]
+[ext_resource type="PackedScene" uid="uid://bdajvpaksn1sv" path="res://DJ_Platform.tscn" id="5_7uxyr"]
+[ext_resource type="PackedScene" uid="uid://kk7tjxvtlhx0" path="res://UI/Main_UI.tscn" id="6_xqto8"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7jw62"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3jrsy"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_dvkj0")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.378233)
+script = ExtResource("2_dl6rf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.7071068, -0.5, 0.5, 0, 0.7071068, 0.70710677, -0.7071068, -0.5, 0.5, -1.6150479, 8.821613, -0.28534317)
+
+[node name="Player" parent="." instance=ExtResource("3_uedo7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.974966, 0)
+script = ExtResource("4_onwlc")
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CylinderShape3D_7jw62")
+debug_color = Color(0.9463535, 6.6420434e-06, 0.5905017, 0.41960785)
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_3jrsy")
+
+[node name="Platform" parent="." instance=ExtResource("5_7uxyr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.6129551, 0)
+
+[node name="UI" parent="." instance=ExtResource("6_xqto8")]

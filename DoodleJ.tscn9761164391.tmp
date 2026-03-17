@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://co2at1f26q65i"]
+
+[ext_resource type="Script" uid="uid://ca7mostspcddi" path="res://playerDJ.gd" id="1_kqov8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ks847"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ojg8r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_04mvl"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.99707687, 0, -0.07640588, 0, 1, 0, 0.07640588, 0, 0.99707687, 0.20524979, 1.4522929, 7.985515)
+
+[node name="Player" type="CharacterBody3D" parent="." groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0557594, 0)
+script = ExtResource("1_kqov8")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_ks847")
+surface_material_override/0 = SubResource("StandardMaterial3D_ojg8r")
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="Player" groups=["player"]]
+transform = Transform3D(1.44, 0, 0, 0, 2.4, 0, 0, 0, 1.44, 0, 0, 0)
+shape = SubResource("BoxShape3D_04mvl")
+debug_color = Color(0.81501174, 0.001996271, 0.977873, 0.41960785)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DistanceLabel" type="Label" parent="UI"]
+offset_right = 116.0
+offset_bottom = 41.0
+text = "Dist:"
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_top = 27.0
+offset_right = 173.0
+offset_bottom = 89.0
+text = "Score: "

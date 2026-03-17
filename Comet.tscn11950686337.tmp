@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://ru1a2fxrv41t"]
+
+[ext_resource type="Script" uid="uid://ct3hcnqonx0dw" path="res://comet.gd" id="1_ksfvs"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_hscxa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ksfvs"]
+albedo_color = Color(1.0020342, 0.8297756, 0.013738945, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hscxa"]
+
+[sub_resource type="Curve" id="Curve_ksfvs"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_a4wol"]
+curve = SubResource("Curve_ksfvs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ksfvs"]
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.14999999
+scale_curve = SubResource("CurveTexture_a4wol")
+color = Color(0.9722361, 8.4325075e-05, 0.7499776, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ksfvs"]
+
+[node name="Comet" type="Area3D" groups=["comets"]]
+script = ExtResource("1_ksfvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_hscxa")
+surface_material_override/0 = SubResource("StandardMaterial3D_ksfvs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+shape = SubResource("SphereShape3D_hscxa")
+
+[node name="Explosion" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ksfvs")
+draw_pass_1 = SubResource("PlaneMesh_ksfvs")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

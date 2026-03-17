@@ -1,0 +1,78 @@
+[gd_scene load_steps=10 format=3 uid="uid://g2qpm30ehia0"]
+
+[ext_resource type="Script" uid="uid://b2geoyotp10" path="res://player.gd" id="1_gw4yp"]
+[ext_resource type="Script" uid="uid://dwv434gahu844" path="res://EnemySpawner.gd" id="2_kt8al"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kvhk5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kt8al"]
+albedo_color = Color(0.7372549, 0.9254902, 0.2627451, 1)
+metallic_specular = 0.25
+roughness = 0.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kt8al"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kvhk5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kt8al"]
+sky_top_color = Color(0.61663663, 0.066266105, 0.92951834, 1)
+sky_horizon_color = Color(0.34535033, 0.67402375, 0.99999994, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.4963429, 0.63951147, 1, 1)
+
+[sub_resource type="Sky" id="Sky_ql037"]
+sky_material = SubResource("ProceduralSkyMaterial_kt8al")
+
+[sub_resource type="Environment" id="Environment_wesg6"]
+background_mode = 2
+sky = SubResource("Sky_ql037")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.371139e-08, -0.86602545, 0.49999997, 0, 0.49999997, 0.86602545, -1, 3.7855173e-08, -2.1855692e-08, 7, 15, 0)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="Player" type="CharacterBody3D" parent="." groups=["player"]]
+script = ExtResource("1_gw4yp")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_kvhk5")
+surface_material_override/0 = SubResource("StandardMaterial3D_kt8al")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_kt8al")
+debug_color = Color(0.923696, 4.957467e-05, 0.68472755, 0.41960785)
+
+[node name="HitArea" type="Area3D" parent="Player"]
+transform = Transform3D(1.2, 0, 0, 0, 2, 0, 0, 0, 1.2, 0, 0, 0)
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="Player/HitArea"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+shape = SubResource("BoxShape3D_kvhk5")
+
+[node name="EnemySpawner" type="Node3D" parent="."]
+script = ExtResource("2_kt8al")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DistanceLabel" type="Label" parent="UI"]
+offset_right = 116.0
+offset_bottom = 41.0
+text = "Dist:"
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_top = 27.0
+offset_right = 173.0
+offset_bottom = 89.0
+text = "Score: "
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wesg6")
+
+[connection signal="area_entered" from="Player/HitArea" to="Player" method="_on_hit_area_area_entered"]

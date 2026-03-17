@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://g2qpm30ehia0"]
+
+[ext_resource type="Script" uid="uid://b2geoyotp10" path="res://player.gd" id="1_gw4yp"]
+[ext_resource type="Script" uid="uid://dwv434gahu844" path="res://EnemySpawner.gd" id="2_kt8al"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kvhk5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kvhk5"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 5, 10)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_gw4yp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_kvhk5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_kvhk5")
+
+[node name="EnemySpawner" type="Node3D" parent="."]
+script = ExtResource("2_kt8al")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DistanceLabel" type="Label" parent="UI"]
+offset_right = 116.0
+offset_bottom = 41.0
+text = "Dist:"
